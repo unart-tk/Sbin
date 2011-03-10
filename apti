@@ -1,0 +1,6 @@
+#!/bin/sh
+
+apti_doc='An alias for: sudo apt-get install'
+apti_arg='<pattern>'
+pat="$1"
+sudo apt-get install "$pat"
