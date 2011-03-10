@@ -6,7 +6,7 @@
 PROG=xclone
 TITEL='git clone from xclip'
 DESC='Runs the "git clone <url>" with an url taken from xclip -o.'
-ARGS='<url>'
+ARGS=''
 
 set -e
 set -u

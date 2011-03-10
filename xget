@@ -6,7 +6,7 @@
 PROG=xget
 TITEL='Wget from xclip'
 DESC='Runs the wget utility with an url taken from xclip -o.'
-ARGS='<url>'
+ARGS=''
 
 set -e
 set -u
