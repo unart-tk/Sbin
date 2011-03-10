@@ -1,6 +1,24 @@
 #!/bin/sh
+#
+# (c) ben, untar.org
+#
 
-aptl_doc='Show installed packages'
-aptl_arg='<pattern>'
+BIN='aptl'
+TITEL='Show installed packages'
+DESC='Filters: dpkg --get-selections'
+ARGS='<pattern>'
+
+set -e
+set -u
+
+usage() { echo "Usage: $BIN $ARGS"; exit 1; }
+
+[ $# = 1 ] || usage
+
+[ $1 = '-h' ] && {
+    echo "Title: $BIN - $TITEL"
+    echo "Description: $DESC"
+    usage
+}
 pat="$1"
 dpkg --get-selections | awk '{ print $1 }' | grep "$pat"

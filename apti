@@ -1,6 +1,26 @@
 #!/bin/sh
+#
+# (c) ben, untar.org
+#
 
-apti_doc='An alias for: sudo apt-get install'
-apti_arg='<pattern>'
+BIN='apti'
+TITEL='install a apt package'
+DESC='An alias for: sudo apt-get install'
+ARGS='<pattern>'
+
+set -e
+set -u
+
+usage() {
+    echo "Usage: $BIN $ARGS";
+    exit 1;
+}
+[ $# = 1 ] || usage
+
+[ $1 = '-h' ] && {
+    echo "Title: $BIN - $TITEL"
+    echo "Description: $DESC"
+    usage
+}
 pat="$1"
 sudo apt-get install "$pat"
