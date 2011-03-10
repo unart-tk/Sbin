@@ -1,20 +1,36 @@
 #!/bin/sh
-
-#     (c) 2011 Ben, untar.org
 #
+# (c) ben, untar.org
 #
-set -u ; set -e
 
-die (){ echo >&2 "$@"; exit 1; }
+BIN='del'
+TITEL='a less destructive rm'
+DESC='throws a deleted file in ~/trash/%timestamp%/'
+ARGS='[-h|--help] <file|dir>'
 
-usage(){ die "Usage - $1"; }
+set -e
+set -u
 
+usage() { echo "Usage: $BIN $ARGS"; exit 1; }
 
-del_doc='A trash for the cli, a save rm '
-del () {
-    [ $# = 1 ] || { usage "del <file>"; }
-    file="$1";  trash="$HOME/trash/$(date +"%S%M%H%m%d%y")"
-    [ -f "$file" ] || [ -d "$file" ] ||  { die "Error: $file not exist."; }
-    [ -d "$trash" ] || mkdir -p "$trash"
-    mv "$file" "$trash"/
+[ $# = 1 ] || usage
+
+case "$1" in
+	-h|--help)
+        echo "Title: $BIN - $TITEL"
+        echo "Description: $DESC"
+        usage ;;
+	-*|--*) usage;;
+     *) break;;
+esac
+
+file="$1";  
+trash="$HOME/trash/$(date +"%S%M%H%m%d%y")"
+
+[ -f "$file" ] || [ -d "$file" ] ||  { 
+    echo "Error: $file not exist."; 
+    exit 1
 }
+[ -d "$trash" ] || mkdir -p "$trash"
+
+mv "$file" "$trash"/

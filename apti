@@ -17,10 +17,14 @@ usage() {
 }
 [ $# = 1 ] || usage
 
-[ $1 = '-h' ] && {
-    echo "Title: $BIN - $TITEL"
-    echo "Description: $DESC"
-    usage
-}
+case "$1" in
+	-h|--help)
+        echo "Title: $BIN - $TITEL"
+        echo "Description: $DESC"
+        usage ;;
+	-*|--*) usage;;
+     *) break;;
+esac
+
 pat="$1"
 sudo apt-get install "$pat"
