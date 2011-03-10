@@ -3,7 +3,7 @@
 # (c) ben, untar.org
 #
 
-BIN='ctar'
+PROG='ctar'
 TITEL='create a tar.gz file'
 DESC='just an alias for "tar cfvz item.tar.gz item"'
 ARGS='[-h|--help] <file|dir>'
@@ -11,13 +11,13 @@ ARGS='[-h|--help] <file|dir>'
 set -e
 set -u
 
-usage() { echo "Usage: $BIN $ARGS"; exit 1; }
+usage() { echo "Usage: $PROG $ARGS"; exit 1; }
 
 [ $# = 1 ] || usage
 
 case "$1" in
 	-h|--help)
-        echo "Title: $BIN - $TITEL"
+        echo "Title: $PROG - $TITEL"
         echo "Description: $DESC"
         usage ;;
 	-*|--*) usage;;

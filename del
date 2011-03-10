@@ -3,7 +3,7 @@
 # (c) ben, untar.org
 #
 
-BIN='del'
+PROG='del'
 TITEL='a less destructive rm'
 DESC='throws a deleted file in ~/trash/%timestamp%/'
 ARGS='[-h|--help] <file|dir>'
@@ -11,13 +11,13 @@ ARGS='[-h|--help] <file|dir>'
 set -e
 set -u
 
-usage() { echo "Usage: $BIN $ARGS"; exit 1; }
+usage() { echo "Usage: $PROG $ARGS"; exit 1; }
 
 [ $# = 1 ] || usage
 
 case "$1" in
 	-h|--help)
-        echo "Title: $BIN - $TITEL"
+        echo "Title: $PROG - $TITEL"
         echo "Description: $DESC"
         usage ;;
 	-*|--*) usage;;

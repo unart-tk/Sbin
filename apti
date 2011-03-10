@@ -3,7 +3,7 @@
 # (c) ben, untar.org
 #
 
-BIN='apti'
+PROG='apti'
 TITEL='install a apt package'
 DESC='An alias for: sudo apt-get install'
 ARGS='<pattern>'
@@ -12,14 +12,14 @@ set -e
 set -u
 
 usage() {
-    echo "Usage: $BIN $ARGS";
+    echo "Usage: $PROG $ARGS";
     exit 1;
 }
 [ $# = 1 ] || usage
 
 case "$1" in
 	-h|--help)
-        echo "Title: $BIN - $TITEL"
+        echo "Title: $PROG - $TITEL"
         echo "Description: $DESC"
         usage ;;
 	-*|--*) usage;;

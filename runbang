@@ -1,18 +1,30 @@
 #!/bin/sh
 #
-# 
-#     by: ben, untar.org
-#     in: bash, utils, vim
+# (c) ben, untar.org
 #
 
-# Run a script with matching interpreter, based on the shebang. Usefull for vim.
+PROG='runbang'
+TITEL='extract and execute the shebang interpreter'
+DESC='Takes the shebang interpreter and runs the script with it, usefull for vim.'
+ARGS='[-h|--help] <file>'
 
-usage(){
-    echo "Usage - $1"
-    exit 1
-}
+set -e
+set -u
 
-[ $# = 1 ] || { usage "runbang <file>"; }
+usage() { echo "Usage: $PROG $ARGS"; exit 1; }
+
+[ $# = 1 ] || usage
+
+case "$1" in
+	-h|--help)
+        echo "Title: $PROG - $TITEL"
+        echo "Description: $DESC"
+        usage ;;
+	-*|--*) usage;;
+     *) break;;
+esac
+
 # find shebangs, args are allowed:  '#!/usr/bin/perl -w'
 intp=$(head -n 1 "$1" | perl -wpl -e 's/.*\/(\w+\s*.*)\s*$/$1/g')
+
 ${intp} "$1"

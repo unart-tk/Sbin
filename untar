@@ -1,26 +1,28 @@
 #!/bin/sh
+#
+# (c) ben, untar.org
+#
 
-#  helper-untar.sh - Uncompress different tar files
-#  
-#  Copyright (c) 2010 Ben Leak <leakin.org>
-#  taken from the 'expand-o-matic' from <http://www.ibm.com/developerworks/aix/library/au-spunixpower.html#expand>
-# 
-set -u
+PROG='untar'
+TITEL='a generic file extracter.'
+DESC='Extracts files based on their ending (.zip, .tar.gz, ...)'
+ARGS='[-h|--help] <file>'
+
 set -e
+set -u
 
-OPTIONS="\
-    ./helper-untar.sh <filename>
-"
-input=
+usage() { echo "Usage: $PROG $ARGS"; exit 1; }
 
-die(){
-	echo >&2 "$@"
-	exit 1
-}
-usage(){
-	die "Usage: $0 $USAGE"
-}
-case "$#" in 0) usage ;; esac
+[ $# = 1 ] || usage
+
+case "$1" in
+	-h|--help)
+        echo "Title: $PROG - $TITEL"
+        echo "Description: $DESC"
+        usage ;;
+	-*|--*) usage;;
+     *) break;;
+esac
 
 if [ -f $1 ] ; then
 case $1 in
@@ -38,5 +40,5 @@ case $1 in
   *)           echo "'$1' cannot be extracted via extract()" ;;
 esac
 else
-echo "'$1' is not a valid file"
+    echo "'$1' is not a valid file"
 fi

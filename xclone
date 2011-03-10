@@ -3,19 +3,18 @@
 # (c) ben, untar.org
 #
 
-PROG='shortdate'
-TITEL='prints out todays date'
-DESC='Prints out todays date in the form of yyyy-mm-dd'
-ARGS='[-h|--help]'
+PROG=xclone
+TITEL='git clone from xclip'
+DESC='Runs the "git clone <url>" with an url taken from xclip -o.'
+ARGS='<url>'
 
 set -e
 set -u
 
 usage() { echo "Usage: $PROG $ARGS"; exit 1; }
 
-
-if [ $# =  0 ] ; then
-    echo `date +"%Y-%m-%d"`
+if [ $# = 0 ] ; then
+    git clone `xclip -o`
 else
     case "$1" in
         -h|--help)
@@ -26,5 +25,4 @@ else
          *) break;;
     esac
 fi
-
 

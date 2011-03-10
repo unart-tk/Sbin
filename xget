@@ -1,17 +1,28 @@
 #!/bin/sh
-
-#     (c) 2011 Ben, untar.org
 #
+# (c) ben, untar.org
+#
+
 PROG=xget
 TITEL='Wget from xclip'
-USAGE='<url>'
+DESC='Runs the wget utility with an url taken from xclip -o.'
+ARGS='<url>'
 
-usage(){
-    echo "Usage: $PROG - $USAGE"
-    exit 1
-}
+set -e
+set -u
 
-if [ "$#" = 0 ] ;then usage; fi
-pat="$1"
+usage() { echo "Usage: $PROG $ARGS"; exit 1; }
 
-wget `xclip -o`
+if [ $# = 0 ] ; then
+    wget `xclip -o`
+else
+    case "$1" in
+        -h|--help)
+            echo "Title: $PROG - $TITEL"
+            echo "Description: $DESC"
+            usage ;;
+        -*|--*) usage;;
+         *) break;;
+    esac
+fi
+
