@@ -1,0 +1,35 @@
+#!/bin/sh
+#
+# (c) ben, untar.org
+#
+
+PROG='virun'
+TITEL='script to screen buffer'
+DESCR='Runs a specific script in a specific screen session in specific  buffer'
+ARGS='<session> <buffer> <script>'
+
+set -e
+set -u
+
+usage() { echo "Usage: $PROG $ARGS"; exit 1; }
+
+[ $# = 3 ] || usage
+
+case "$1" in
+	-h|--help)
+        echo "Title: $PROG - $TITEL"
+        echo "Description: $DESC"
+        usage ;;
+	-*|--*) usage;;
+     *) break;;
+esac
+
+session=$1
+buffer=$2
+script=$3
+
+intp=$(head -n 1 "$script" | perl -wpl -e 's/.*\/(\w+\s*.*)\s*$/$1/g')
+cmd=$(sed -n '2,2p' "$script" | sed  's/#\s*//g')
+cmd=`pwd`/$cmd
+
+screen -S $session -p $buffer -X stuff "${intp} $cmd  $(echo  '\r')"
