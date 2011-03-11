@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# (c) ben, untar.org
+#
+
+PROG=apts
+TITEL='search apt packages'
+DESC='an alias for: apt-cache search <pattern>'
+ARGS='[-h|--help] <pattern>'
+
+set -e
+set -u
+
+usage() { echo "Usage: $PROG $ARGS"; exit 1; }
+
+[ $# = 1 ] || usage
+
+case "$1" in
+	-h|--help)
+        echo "Title: $PROG - $TITEL"
+        echo "Description: $DESC"
+        usage ;;
+	-*|--*) usage;;
+     *) break;;
+esac
+
+pat="$1"
+
+apt-cache search  "$pat"
